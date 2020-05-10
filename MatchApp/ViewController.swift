@@ -35,11 +35,17 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardId", for: indexPath) as! CardCollectionViewCell
         
-            let card = cardsArray[indexPath.row]
-            cell.confiegureCell(card: card)
+            
            
             return cell
        }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cardCell = cell as? CardCollectionViewCell
+        
+        let card = cardsArray[indexPath.row]
+        cardCell?.confiegureCell(card: card)
+    }
        
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -80,6 +86,8 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
             
         }
         else{
+            cardOne.isFlipped = false
+            cardTwo.isFlipped = false
             cardOneCell?.flipDown()
             cardTwoCell?.flipDown()
         }
