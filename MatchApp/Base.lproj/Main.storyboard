@@ -61,6 +61,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="GVr-C4-ff7"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Efq-hU-33u"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -78,6 +82,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="CardCollectionView" destination="44v-Sv-fPh" id="wcu-ep-k6J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
