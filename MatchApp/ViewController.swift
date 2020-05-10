@@ -32,9 +32,12 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
        }
        
        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardId", for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardId", for: indexPath) as! CardCollectionViewCell
+        
+            let card = cardsArray[indexPath.row]
+            cell.confiegureCell(card: card)
            
-           return cell
+            return cell
        }
        
 

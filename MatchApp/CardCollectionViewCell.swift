@@ -15,4 +15,14 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var CardFront: UIImageView!
     
+    var card:Card?
+    
+    func confiegureCell(card : Card){
+        
+        self.card = card
+        
+        CardFront.image = UIImage(named : card.cardName)
+        
+    }
+    
 }
