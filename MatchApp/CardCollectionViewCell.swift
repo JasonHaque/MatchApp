@@ -23,11 +23,21 @@ class CardCollectionViewCell: UICollectionViewCell {
         
         CardFront.image = UIImage(named : card.cardName)
         
-        if card.isFlipped{
+        if card.isMatched == true{
+            CardFront.alpha = 0
+            CardBack.alpha = 0
+            return
+        }
+        else{
+            CardFront.alpha = 1
+            CardBack.alpha = 1
+        }
+        
+        if card.isFlipped == true{
             flipUp(speed:0)
         }
         else{
-            flipDown(speed:0)
+            flipDown(speed:0,delay: 0)
         }
         
     }
@@ -37,8 +47,8 @@ class CardCollectionViewCell: UICollectionViewCell {
         card?.isFlipped = true
     }
     
-    func flipDown(speed:TimeInterval = 0.3){
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
+    func flipDown(speed:TimeInterval = 0.3, delay:TimeInterval = 0.5 ){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+delay) {
             UIView.transition(from: self.CardFront, to: self.CardBack, duration: speed, options: [.showHideTransitionViews,.transitionFlipFromLeft], completion: nil)
         }
          

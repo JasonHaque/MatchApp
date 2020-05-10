@@ -44,7 +44,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
-        if cell?.card?.isFlipped == false{
+        if cell?.card?.isFlipped == false && cell?.card?.isMatched == false{
             
             cell?.flipUp()
             
