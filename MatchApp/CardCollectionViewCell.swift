@@ -42,4 +42,12 @@ class CardCollectionViewCell: UICollectionViewCell {
         card?.isFlipped = false
     }
     
+    func remove(){
+        CardBack.alpha = 0
+        
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseOut, animations: {
+            self.CardFront.alpha = 0
+        }, completion: nil)
+    }
+    
 }

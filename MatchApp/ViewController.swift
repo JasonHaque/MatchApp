@@ -17,6 +17,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     
     let model = CardModel()
     var cardsArray = [Card]()
+    var firstPickedCardIndex : IndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +45,46 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
         if cell?.card?.isFlipped == false{
+            
             cell?.flipUp()
+            
+            if(firstPickedCardIndex == nil){
+                firstPickedCardIndex = indexPath
+            }
+            else{
+                checkMatch(indexPath)
+            }
+            
+            
+        }
+       
+    }
+    
+    
+    // Mark: - Game Logic
+    
+    func checkMatch(_ secondCardIndex : IndexPath){
+        
+        let cardOne = cardsArray[firstPickedCardIndex!.row]
+        let cardTwo = cardsArray[secondCardIndex.row]
+        let cardOneCell = CardCollectionView.cellForItem(at: firstPickedCardIndex!) as? CardCollectionViewCell
+        let cardTwoCell = CardCollectionView.cellForItem(at: secondCardIndex) as? CardCollectionViewCell
+        
+        if(cardOne.cardName == cardTwo.cardName ){
+            
+            cardOne.isMatched = true
+            cardTwo.isMatched = true
+            cardOneCell?.remove()
+            cardTwoCell?.remove()
+            
+            
         }
         else{
-            cell?.flipDown()
+            cardOneCell?.flipDown()
+            cardTwoCell?.flipDown()
         }
         
+        firstPickedCardIndex = nil
     }
 }
 
