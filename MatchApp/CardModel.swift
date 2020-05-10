@@ -26,6 +26,8 @@ class CardModel{
             
             generatedCards += [cardOne,cardTwo]
             
+            print(randomNumber)
+            
             
         }
         
