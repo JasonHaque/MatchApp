@@ -32,6 +32,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         
         //set up timer
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerBegin), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
     }
     
     // Mark:- Timer methods
@@ -140,7 +141,11 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     
     func showAlert(title:String , message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(okAction)
         present(alert, animated: true , completion: nil)
+        
     }
 }
 
