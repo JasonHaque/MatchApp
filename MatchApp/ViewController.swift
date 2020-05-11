@@ -15,15 +15,39 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     
     @IBOutlet weak var CardCollectionView: UICollectionView!
     
+    @IBOutlet weak var TimerLabel: UILabel!
+    
     let model = CardModel()
     var cardsArray = [Card]()
     var firstPickedCardIndex : IndexPath?
+    var timer: Timer?
+    var totalTime : Int = 100*1000
 
     override func viewDidLoad() {
         super.viewDidLoad()
         cardsArray = model.getCards()
         CardCollectionView.delegate = self
         CardCollectionView.dataSource = self
+        
+        //set up timer
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerBegin), userInfo: nil, repeats: true)
+    }
+    
+    // Mark:- Timer methods
+    
+    @objc func timerBegin(){
+        
+        totalTime -= 1
+        
+        let seconds:Double = Double(totalTime)/1000.0
+        
+        TimerLabel.text = String(format: "Time remaining %.2f", seconds)
+        
+        if(totalTime == 0){
+            TimerLabel.textColor = UIColor.red
+            timer?.invalidate()
+        }
+        
     }
     
     // Mark: - Delegate methods for collectionview
