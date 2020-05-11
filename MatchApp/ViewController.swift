@@ -21,7 +21,8 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     var cardsArray = [Card]()
     var firstPickedCardIndex : IndexPath?
     var timer: Timer?
-    var totalTime : Int = 100*1000
+    var matchedCardNumber : Int = 0
+    var totalTime : Int = 50*1000
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         if(totalTime == 0){
             TimerLabel.textColor = UIColor.red
             timer?.invalidate()
+            checkForGameEnd()
         }
         
     }
@@ -106,6 +108,8 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
             cardTwo.isMatched = true
             cardOneCell?.remove()
             cardTwoCell?.remove()
+            matchedCardNumber += 2
+            checkForGameEnd()
             
             
         }
@@ -117,6 +121,26 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         }
         
         firstPickedCardIndex = nil
+    }
+    
+    func checkForGameEnd(){
+        
+        if(matchedCardNumber == cardsArray.count){
+            timer?.invalidate()
+            showAlert(title: "Congrats", message: "You have won the game")
+            
+        }
+        else{
+            if totalTime <= 0 {
+                showAlert(title: "Sorry", message: "better luck next time")
+            }
+        }
+        
+    }
+    
+    func showAlert(title:String , message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        present(alert, animated: true , completion: nil)
     }
 }
 
