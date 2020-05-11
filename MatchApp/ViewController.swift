@@ -147,12 +147,16 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         if(hasWon){
             timer?.invalidate()
             showAlert(title: "Congrats", message: "You have won the game")
+           // CardCollectionView.reloadData()
+            resetGame()
         }
         
        
         else{
             if totalTime <= 0 {
                 showAlert(title: "Sorry", message: "better luck next time")
+                //CardCollectionView.reloadData()
+                resetGame()
             }
         }
         
@@ -161,9 +165,20 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     func showAlert(title:String , message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "Ok", style: .default){(_) in
+            self.resetGame()
+        }
         alert.addAction(okAction)
         present(alert, animated: true , completion: nil)
+        
+    }
+    
+    func resetGame(){
+        cardsArray = model.getCards()
+        totalTime = 50 * 1000
+        CardCollectionView.reloadData()
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerBegin), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
         
     }
 }
