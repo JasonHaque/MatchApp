@@ -14,19 +14,27 @@ class CardModel{
     func getCards() -> [Card]{
         
         var generatedCards = [Card]()
+        var generatedNumbers = [Int]()
         
-        for _ in 1...8{
+        while generatedNumbers.count < 8{
             
             let randomNumber = Int.random(in: 1...13)
             
-            let cardOne = Card()
-            let cardTwo = Card()
-            cardOne.cardName = "card\(randomNumber)"
-            cardTwo.cardName = "card\(randomNumber)"
+            if generatedNumbers.contains(randomNumber) == false{
+                
+                
+                let cardOne = Card()
+                let cardTwo = Card()
+                cardOne.cardName = "card\(randomNumber)"
+                cardTwo.cardName = "card\(randomNumber)"
+                
+                generatedCards += [cardOne,cardTwo]
+                
+                print(randomNumber)
+                generatedNumbers.append(randomNumber)
+            }
             
-            generatedCards += [cardOne,cardTwo]
             
-            print(randomNumber)
             
             
         }

@@ -79,6 +79,11 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
        
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        if(totalTime <= 0){
+            return
+        }
         let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
         if cell?.card?.isFlipped == false && cell?.card?.isMatched == false{
             
