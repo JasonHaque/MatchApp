@@ -21,7 +21,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     var cardsArray = [Card]()
     var firstPickedCardIndex : IndexPath?
     var timer: Timer?
-    var matchedCardNumber : Int = 0
+    
     var totalTime : Int = 50*1000
 
     override func viewDidLoad() {
@@ -109,7 +109,6 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
             cardTwo.isMatched = true
             cardOneCell?.remove()
             cardTwoCell?.remove()
-            matchedCardNumber += 2
             checkForGameEnd()
             
             
@@ -126,11 +125,20 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     
     func checkForGameEnd(){
         
-        if(matchedCardNumber == cardsArray.count){
+        var hasWon = true
+        
+        for card in cardsArray{
+            if card.isMatched == false{
+                hasWon = false
+                break
+            }
+        }
+        if(hasWon){
             timer?.invalidate()
             showAlert(title: "Congrats", message: "You have won the game")
-            
         }
+        
+       
         else{
             if totalTime <= 0 {
                 showAlert(title: "Sorry", message: "better luck next time")
