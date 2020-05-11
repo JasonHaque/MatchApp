@@ -21,8 +21,8 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     var cardsArray = [Card]()
     var firstPickedCardIndex : IndexPath?
     var timer: Timer?
-    
     var totalTime : Int = 50*1000
+    var soundPlayer = SoundManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,9 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         //set up timer
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerBegin), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        soundPlayer.playSound(effect: .shuffle)
     }
     
     // Mark:- Timer methods
@@ -80,6 +83,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         if cell?.card?.isFlipped == false && cell?.card?.isMatched == false{
             
             cell?.flipUp()
+            soundPlayer.playSound(effect: .flip)
             
             if(firstPickedCardIndex == nil){
                 firstPickedCardIndex = indexPath
@@ -107,6 +111,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
             
             cardOne.isMatched = true
             cardTwo.isMatched = true
+            soundPlayer.playSound(effect: .match)
             cardOneCell?.remove()
             cardTwoCell?.remove()
             checkForGameEnd()
@@ -116,6 +121,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
         else{
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
+            soundPlayer.playSound(effect: .nomatch)
             cardOneCell?.flipDown()
             cardTwoCell?.flipDown()
         }
