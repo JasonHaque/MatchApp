@@ -21,7 +21,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     var cardsArray = [Card]()
     var firstPickedCardIndex : IndexPath?
     var timer: Timer?
-    var totalTime : Int = 50*1000
+    var totalTime : Int = 100*1000
     var soundPlayer = SoundManager()
 
     override func viewDidLoad() {
@@ -175,7 +175,7 @@ class ViewController: UIViewController ,UICollectionViewDelegate,UICollectionVie
     
     func resetGame(){
         cardsArray = model.getCards()
-        totalTime = 50 * 1000
+        totalTime = 100*1000
         CardCollectionView.reloadData()
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerBegin), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
